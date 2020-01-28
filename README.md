@@ -1,19 +1,14 @@
 # employee_management
 Laboratorium - programowanie w JAVA
 
-### Zadanie nr 1
+### Zadanie nr 2
 
-Proszę utworzyć nowy moduł o nazwie "employee_management" (typ Java).
-Następnie należy dodać pakiet "pl.gda.wsb.employees", a w nim klasę o nazwie "EmployeesDemo.java".
+Zadanie nr 2
 
-Będzie to klasa, z której program będzie rozpoczynał swoje działanie.
-Należy zatem w powyższej klasie utworzyć metodę main.
+Do klasy EmployeesDemo dodajmy pole/zmienną klasy (static) o nazwie "companyName", która zawierać będzie nazwę firmy, np. "Logintegra Sp. z o. o.".
 
-Do przećwiczenia:
- - użycie System.out do wyświetlenia napisu w konsoli
- - wyświetlenie w konsoli parametrów args[] z metody main
- - wyświetlenie w konsoli aktualnej daty - new Date()
+Do metody main w klasie EmployeesDemo dodajmy dwie zmienne lokalne:
+ - zmienną typu obiektowego o nazwie "operatorName", która przechowywać będzie nazwę użytkownika programu
+ - zmienną typu prostego o nazwie "empoloyeesCounter, która przechowywać będzie aktualną liczbę pracowników w firmie (np. 14).
 
-Do analizy:
- - nazwa pakietu oraz importy zapisane w kodzie ponad definicją klasy
- - związek nazwy modułu i pakietu z lokalizacją pliku .java i .class
+Na koniec wyświetlić należy w konsoli nazwę firmy, nazwę operatora (w miejscu wyświetlania dotychczas args[0]) oraz liczbę pracowników w firmie.
