@@ -71,7 +71,6 @@ public class EmployeesDemo {
                     System.out.println("...");
                     break;
                 }
-
                 System.out.println(employee);
             }
         }
@@ -92,7 +91,6 @@ public class EmployeesDemo {
                 } catch (IOException e) {
                     System.out.println("Błąd zapisu pliku!");
                 }
-
                 break;
             }
 
