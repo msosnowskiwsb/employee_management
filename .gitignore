@@ -13,6 +13,7 @@
 # IntelliJ files
 .idea
 employee_management.iml
+out
 
 # Package Files #
 *.jar
