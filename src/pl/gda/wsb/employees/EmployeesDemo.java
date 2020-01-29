@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 public class EmployeesDemo {
 
     static String companyName = "Logintegra Sp. z o. o.";
-    static String fileName = "C:\\Users\\sosno\\Zoho Docs\\hubiC\\WSB\\Programowanie w JAVA\\workspace\\EmployeeManagement\\src\\pl\\gda\\wsb\\employees\\db.txt";
+    static String fileName = "C:\\Users\\sosno\\Zoho Docs\\hubiC\\WSB\\Programowanie w JAVA\\workspace\\EmployeeManagement\\utils\\db.txt";
 
     public static void main(String[] args) {
 

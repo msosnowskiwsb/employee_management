@@ -14,5 +14,5 @@ false - Zbigniew Knap - dyrektor
 true - Małgorzata Januszewska - kierowca
 true - Sławomir Zwoliński - kierowca
 false - Tomasz Bystry - sprzedawca
-true - Bożena Szybuk - księgowa
+false - Bożena Szybuk - księgowa
 false - Danuta Romańczak - kierownik
