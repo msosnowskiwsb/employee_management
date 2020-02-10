@@ -4,18 +4,16 @@ import java.util.Date;
 
 public class EmployeesDemo {
 
-    static String companyName = "Logintegra Sp. z o. o.";
 
     public static void main(String[] args) {
 
-        String operatorName = "Mateusz";
-        int employeesCounter = 14;
+        for (int i=0; i<args.length; i++){
+            System.out.println("Argument [" + i + "]: " + args[i]);
+        }
 
-        System.out.println(companyName);
-        System.out.print("Dzień dobry, ");
-        System.out.println(operatorName);
+        System.out.println("\nDzień dobry!");
         System.out.println("Aktualna data: " + new Date());
-        System.out.println("Liczba pracowników: " + employeesCounter);
+
     }
 }
 
