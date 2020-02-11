@@ -1,7 +1,5 @@
 package pl.gda.wsb.employees;
 
-import java.util.Date;
-
 public class EmployeesDemo {
 
     static String companyName = "Logintegra Sp. z o. o.";
@@ -14,10 +12,9 @@ public class EmployeesDemo {
         System.out.println("\n" + companyName);
         System.out.println("\nDzień dobry, ");
         System.out.println(operatorName);
-        System.out.println("Aktualna data: " + new Date());
+
         System.out.println("Liczba pracowników: " + employeesCounter);
     }
-
 }
 
 
