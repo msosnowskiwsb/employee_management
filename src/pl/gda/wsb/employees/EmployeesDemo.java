@@ -1,5 +1,7 @@
 package pl.gda.wsb.employees;
 
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -15,7 +17,7 @@ import java.util.regex.Pattern;
 public class EmployeesDemo {
 
     static String companyName = "Logintegra Sp. z o. o.";
-    static String fileName = "C:\\Users\\sosno\\Zoho Docs\\hubiC\\WSB\\Programowanie w JAVA\\workspace\\EmployeeManagement\\utils\\db.txt";
+    static String fileName = System.getProperty("user.dir") + "\\utils\\db.txt";
 
     public static void main(String[] args) {
 
