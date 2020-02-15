@@ -1,7 +1,5 @@
 package pl.gda.wsb.employees;
 
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
