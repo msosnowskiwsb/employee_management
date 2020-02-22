@@ -116,7 +116,6 @@ public class EmployeesDemo {
                 System.out.println("Błędnie podane imię i nazwisko!");
             }
         }
-
     }
 
 }
