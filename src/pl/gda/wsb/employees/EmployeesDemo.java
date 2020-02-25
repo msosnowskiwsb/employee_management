@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 public class EmployeesDemo {
 
     static String companyName = "Logintegra Sp. z o. o.";
-    static String fileName = System.getProperty("user.dir") + "\\utils\\db.txt";
+    static String fileName = System.getProperty("user.dir") + "\\utils\\db.txot";
 
     public static void main(String[] args) {
 
@@ -23,14 +23,8 @@ public class EmployeesDemo {
         ArrayList<String> employees = new ArrayList<>();
         ArrayList<String> loggedEmployees = new ArrayList<>();
 
-        File file = new File(fileName);
-        Scanner fileScanner = null;
-        try {
-            fileScanner = new Scanner(file);
-        } catch (FileNotFoundException e) {
-            System.out.println("Błąd pobrania pliku z listą pracowników!");
-            return;
-        }
+        Scanner fileScanner = getFileScanner();
+        if (fileScanner == null) return;
 
         Pattern pattern = Pattern.compile("^(true|false) - (.+)$");
         while (fileScanner.hasNextLine()) {
@@ -116,6 +110,18 @@ public class EmployeesDemo {
                 System.out.println("Błędnie podane imię i nazwisko!");
             }
         }
+    }
+
+    private static Scanner getFileScanner() {
+        File file = new File(fileName);
+        Scanner fileScanner = null;
+        try {
+            fileScanner = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            System.out.println("Błąd pobrania pliku z listą pracowników!");
+            return null;
+        }
+        return fileScanner;
     }
 
 }
