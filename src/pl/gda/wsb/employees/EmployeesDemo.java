@@ -1,5 +1,7 @@
 package pl.gda.wsb.employees;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -15,14 +17,13 @@ import java.util.regex.Pattern;
 public class EmployeesDemo {
 
     static String companyName = "Logintegra Sp. z o. o.";
-    static String fileName = System.getProperty("user.dir") + "\\utils\\db.txot";
+    static String fileName = System.getProperty("user.dir") + "\\utils\\db.txt";
+    static ArrayList<String> employees = new ArrayList<>();
+    static ArrayList<String> loggedEmployees = new ArrayList<>();
 
     public static void main(String[] args) {
 
         String operatorName = "Mateusz";
-        ArrayList<String> employees = new ArrayList<>();
-        ArrayList<String> loggedEmployees = new ArrayList<>();
-
         Scanner fileScanner = getFileScanner();
         if (fileScanner == null) return;
 
@@ -31,9 +32,9 @@ public class EmployeesDemo {
             String employee = fileScanner.nextLine();
             Matcher matcher = pattern.matcher(employee);
             if (matcher.matches()) {
-                employees.add(employee);
+                getEmployees().add(employee);
                 if (Boolean.parseBoolean(matcher.group(1))) {
-                    loggedEmployees.add(matcher.group(2));
+                    getEmployees(true).add(matcher.group(2));
                 }
             }
         }
@@ -49,18 +50,18 @@ public class EmployeesDemo {
                 .append(ft.format(new Date()));
         System.out.println(stringBuilder);
 
-        if (employees.size() == 0) {
+        if (getEmployees().size() == 0) {
             System.out.println("Brak pracowników");
         } else {
-            System.out.println("Liczba pracowników: " + employees.size());
+            System.out.println("Liczba pracowników: " + getEmployees().size());
         }
 
-        if (loggedEmployees.size() > 0) {
-            System.out.println("\nZalogowani pracownicy (" + loggedEmployees.size() + "):");
+        if (getEmployees(true).size() > 0) {
+            System.out.println("\nZalogowani pracownicy (" + getEmployees(true).size() + "):");
 
-            Collections.sort(loggedEmployees);
+            Collections.sort(getEmployees(true));
             int i = 0;
-            for (String employee : loggedEmployees) {
+            for (String employee : getEmployees(true)) {
                 if (i++ == 5) {
                     System.out.println("...");
                     break;
@@ -78,7 +79,7 @@ public class EmployeesDemo {
                 FileWriter fw = null;
                 try {
                     fw = new FileWriter(fileName, false);
-                    for (String employee : employees) {
+                    for (String employee : getEmployees(false)) {
                         fw.write(employee + "\n");
                     }
                     fw.close();
@@ -92,13 +93,13 @@ public class EmployeesDemo {
             boolean searched = false;
             Pattern patternSearch = Pattern.compile("^(true|false) - " + text + " - (.+)$");
 
-            for (String employee : employees) {
+            for (String employee : getEmployees()) {
                 Matcher matcher = patternSearch.matcher(employee);
                 if (matcher.matches()) {
                     searched = true;
                     boolean isLogged = Boolean.parseBoolean(matcher.group(1));
-                    employees.remove(i);
-                    employees.add(i, employee.replace(matcher.group(1), isLogged ? "false" : "true"));
+                    getEmployees().remove(i);
+                    getEmployees().add(i, employee.replace(matcher.group(1), isLogged ? "false" : "true"));
                     break;
                 }
                 i++;
@@ -124,4 +125,11 @@ public class EmployeesDemo {
         return fileScanner;
     }
 
+    private static ArrayList<String> getEmployees(Boolean onlyLogged){
+        return onlyLogged ? employees : loggedEmployees;
+    }
+
+    private static ArrayList<String> getEmployees(){
+        return employees;
+    }
 }
