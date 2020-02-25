@@ -23,7 +23,6 @@ public class EmployeesDemo {
 
     public static void main(String[] args) {
 
-        String operatorName = "Mateusz";
         Scanner fileScanner = getFileScanner();
         if (fileScanner == null) return;
 
@@ -45,7 +44,7 @@ public class EmployeesDemo {
         stringBuilder
                 .append(companyName).append("\n")
                 .append("Dzień dobry, ")
-                .append(operatorName).append("\n")
+                .append(getOperatorName()).append("\n")
                 .append("Aktualna data: ")
                 .append(ft.format(new Date()));
         System.out.println(stringBuilder);
@@ -131,5 +130,9 @@ public class EmployeesDemo {
 
     private static ArrayList<String> getEmployees(){
         return employees;
+    }
+
+    private static String getOperatorName(){
+        return "Mateusz";
     }
 }
