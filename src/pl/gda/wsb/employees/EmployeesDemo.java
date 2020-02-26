@@ -49,16 +49,7 @@ public class EmployeesDemo {
             String text = inScanner.nextLine();
             if (text.equals("exit")) {
 
-                FileWriter fw = null;
-                try {
-                    fw = new FileWriter(fileName, false);
-                    for (String employee : getEmployees(false)) {
-                        fw.write(employee + "\n");
-                    }
-                    fw.close();
-                } catch (IOException e) {
-                    System.out.println("Błąd zapisu pliku!");
-                }
+                saveToFile(getEmployees());
                 break;
             }
 
@@ -83,6 +74,19 @@ public class EmployeesDemo {
             } else {
                 System.out.println("Błędnie podane imię i nazwisko!");
             }
+        }
+    }
+
+    private static void saveToFile(ArrayList<String> employeesListToSave) {
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(fileName, false);
+            for (String employee : employeesListToSave) {
+                fw.write(employee + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Błąd zapisu pliku!");
         }
     }
 
