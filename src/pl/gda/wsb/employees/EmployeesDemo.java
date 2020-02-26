@@ -45,19 +45,7 @@ public class EmployeesDemo {
             System.out.println("Liczba pracowników: " + getEmployees().size());
         }
 
-        if (getEmployees(true).size() > 0) {
-            System.out.println("\nZalogowani pracownicy (" + getEmployees(true).size() + "):");
-
-            Collections.sort(getEmployees(true));
-            int i = 0;
-            for (String employee : getEmployees(true)) {
-                if (i++ == 5) {
-                    System.out.println("...");
-                    break;
-                }
-                System.out.println(employee);
-            }
-        }
+        printLoggedEmployees();
 
         System.out.println("\nPodaj imię i nazwisko (exit = koniec): ");
         Scanner inScanner = new Scanner(System.in);
@@ -98,6 +86,22 @@ public class EmployeesDemo {
                 System.out.println("Zmieniono status dla pracownika: " + text);
             } else {
                 System.out.println("Błędnie podane imię i nazwisko!");
+            }
+        }
+    }
+
+    private static void printLoggedEmployees() {
+        if (getEmployees(true).size() > 0) {
+            System.out.println("\nZalogowani pracownicy (" + getEmployees(true).size() + "):");
+
+            Collections.sort(getEmployees(true));
+            int i = 0;
+            for (String employee : getEmployees(true)) {
+                if (i++ == 5) {
+                    System.out.println("...");
+                    break;
+                }
+                System.out.println(employee);
             }
         }
     }
