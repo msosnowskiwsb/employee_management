@@ -37,15 +37,7 @@ public class EmployeesDemo {
         }
         fileScanner.close();
 
-        SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yy HH:mm");
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder
-                .append(companyName).append("\n")
-                .append("Dzień dobry, ")
-                .append(getOperatorName()).append("\n")
-                .append("Aktualna data: ")
-                .append(ft.format(new Date()));
-        System.out.println(stringBuilder);
+        printWelcomeText();
 
         if (getEmployees().size() == 0) {
             System.out.println("Brak pracowników");
@@ -110,6 +102,18 @@ public class EmployeesDemo {
         }
     }
 
+    private static void printWelcomeText() {
+        SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yy HH:mm");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder
+                .append(companyName).append("\n")
+                .append("Dzień dobry, ")
+                .append(getOperatorName()).append("\n")
+                .append("Aktualna data: ")
+                .append(ft.format(new Date()));
+        System.out.println(stringBuilder);
+    }
+
     private static Scanner getFileScanner() {
         File file = new File(fileName);
         Scanner fileScanner = null;
@@ -123,7 +127,7 @@ public class EmployeesDemo {
     }
 
     private static ArrayList<String> getEmployees(Boolean onlyLogged){
-        return onlyLogged ? employees : loggedEmployees;
+        return onlyLogged ? loggedEmployees : employees;
     }
 
     private static ArrayList<String> getEmployees(){
