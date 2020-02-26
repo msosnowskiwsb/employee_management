@@ -1,7 +1,5 @@
 package pl.gda.wsb.employees;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
