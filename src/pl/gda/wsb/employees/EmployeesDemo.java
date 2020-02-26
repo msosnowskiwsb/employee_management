@@ -39,11 +39,7 @@ public class EmployeesDemo {
 
         printWelcomeText();
 
-        if (getEmployees().size() == 0) {
-            System.out.println("Brak pracowników");
-        } else {
-            System.out.println("Liczba pracowników: " + getEmployees().size());
-        }
+        printEmployees();
 
         printLoggedEmployees();
 
@@ -97,6 +93,27 @@ public class EmployeesDemo {
             Collections.sort(getEmployees(true));
             int i = 0;
             for (String employee : getEmployees(true)) {
+                if (i++ == 5) {
+                    System.out.println("...");
+                    break;
+                }
+                System.out.println(employee);
+            }
+        }
+    }
+
+    private static void printEmployees() {
+        if (getEmployees().size() == 0) {
+            System.out.println("Brak pracowników");
+        } else {
+            System.out.println("Liczba pracowników: " + getEmployees().size());
+        }
+
+        if (getEmployees().size() > 0) {
+            System.out.println("\nLista pracowników (" + getEmployees().size() + "):");
+
+            int i = 0;
+            for (String employee : getEmployees()) {
                 if (i++ == 5) {
                     System.out.println("...");
                     break;

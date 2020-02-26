@@ -19,8 +19,6 @@ W klasie EmployeeDemo wydzielamy prywatne i statyczne metody:
 
 7. Metoda printLoggedEmployees() - przyjmuje listę pracownikow ArrayList<String>, nie zwraca wartości.
 
-8. Metoda readEmployeeNameAndChangeStatus() - przyjmuje listę pracowników.
-
-9. ArrayList<String>, nie zwraca wartości.
+8. Metoda readEmployeeNameAndChangeStatus() - przyjmuje listę pracowników ArrayList<String>, nie zwraca wartości.
 
 10. Metoda saveToFile() - przyjmuje listę ArrayList<String>, nie zwraca wartości.
