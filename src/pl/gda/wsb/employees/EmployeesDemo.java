@@ -15,82 +15,45 @@ import java.util.regex.Pattern;
 public class EmployeesDemo {
 
     static String companyName = "Logintegra Sp. z o. o.";
-    static String fileName = "C:\\Users\\sosno\\Zoho Docs\\hubiC\\WSB\\Programowanie w JAVA\\workspace\\EmployeeManagement\\utils\\db.txt";
+    static String fileName = System.getProperty("user.dir") + "\\utils\\db.txt";
+    static ArrayList<String> employees = new ArrayList<>();
+    static ArrayList<String> loggedEmployees = new ArrayList<>();
 
     public static void main(String[] args) {
 
-        String operatorName = "Mateusz";
-        ArrayList<String> employees = new ArrayList<>();
-        ArrayList<String> loggedEmployees = new ArrayList<>();
-
-        File file = new File(fileName);
-        Scanner fileScanner = null;
-        try {
-            fileScanner = new Scanner(file);
-        } catch (FileNotFoundException e) {
-            System.out.println("Błąd pobrania pliku z listą pracowników!");
-            return;
-        }
+        Scanner fileScanner = getFileScanner();
+        if (fileScanner == null) return;
 
         Pattern pattern = Pattern.compile("^(true|false) - (.+)$");
         while (fileScanner.hasNextLine()) {
             String employee = fileScanner.nextLine();
             Matcher matcher = pattern.matcher(employee);
             if (matcher.matches()) {
-                employees.add(employee);
+                getEmployees().add(employee);
                 if (Boolean.parseBoolean(matcher.group(1))) {
-                    loggedEmployees.add(matcher.group(2));
+                    getEmployees(true).add(matcher.group(2));
                 }
             }
         }
         fileScanner.close();
 
-        SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yy HH:mm");
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder
-                .append(companyName).append("\n")
-                .append("Dzień dobry, ")
-                .append(operatorName).append("\n")
-                .append("Aktualna data: ")
-                .append(ft.format(new Date()));
-        System.out.println(stringBuilder);
+        printWelcomeText();
 
-        if (employees.size() == 0) {
-            System.out.println("Brak pracowników");
-        } else {
-            System.out.println("Liczba pracowników: " + employees.size());
-        }
+        printEmployees();
 
-        if (loggedEmployees.size() > 0) {
-            System.out.println("\nZalogowani pracownicy (" + loggedEmployees.size() + "):");
+        printLoggedEmployees();
 
-            Collections.sort(loggedEmployees);
-            int i = 0;
-            for (String employee : loggedEmployees) {
-                if (i++ == 5) {
-                    System.out.println("...");
-                    break;
-                }
-                System.out.println(employee);
-            }
-        }
+        readEmployeeNameAndChangeStatus(getEmployees());
+    }
 
+    private static void readEmployeeNameAndChangeStatus(ArrayList<String> employeeList) {
         System.out.println("\nPodaj imię i nazwisko (exit = koniec): ");
         Scanner inScanner = new Scanner(System.in);
         while (inScanner.hasNextLine()) {
             String text = inScanner.nextLine();
             if (text.equals("exit")) {
 
-                FileWriter fw = null;
-                try {
-                    fw = new FileWriter(fileName, false);
-                    for (String employee : employees) {
-                        fw.write(employee + "\n");
-                    }
-                    fw.close();
-                } catch (IOException e) {
-                    System.out.println("Błąd zapisu pliku!");
-                }
+                saveToFile(employeeList);
                 break;
             }
 
@@ -98,13 +61,13 @@ public class EmployeesDemo {
             boolean searched = false;
             Pattern patternSearch = Pattern.compile("^(true|false) - " + text + " - (.+)$");
 
-            for (String employee : employees) {
+            for (String employee : employeeList) {
                 Matcher matcher = patternSearch.matcher(employee);
                 if (matcher.matches()) {
                     searched = true;
                     boolean isLogged = Boolean.parseBoolean(matcher.group(1));
-                    employees.remove(i);
-                    employees.add(i, employee.replace(matcher.group(1), isLogged ? "false" : "true"));
+                    employeeList.remove(i);
+                    employeeList.add(i, employee.replace(matcher.group(1), isLogged ? "false" : "true"));
                     break;
                 }
                 i++;
@@ -116,7 +79,91 @@ public class EmployeesDemo {
                 System.out.println("Błędnie podane imię i nazwisko!");
             }
         }
-
     }
 
+    private static void saveToFile(ArrayList<String> employeesListToSave) {
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(fileName, false);
+            for (String employee : employeesListToSave) {
+                fw.write(employee + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Błąd zapisu pliku!");
+        }
+    }
+
+    private static void printLoggedEmployees() {
+        if (getEmployees(true).size() > 0) {
+            System.out.println("\nZalogowani pracownicy (" + getEmployees(true).size() + "):");
+
+            Collections.sort(getEmployees(true));
+            int i = 0;
+            for (String employee : getEmployees(true)) {
+                if (i++ == 5) {
+                    System.out.println("...");
+                    break;
+                }
+                System.out.println(employee);
+            }
+        }
+    }
+
+    private static void printEmployees() {
+        if (getEmployees().size() == 0) {
+            System.out.println("Brak pracowników");
+        } else {
+            System.out.println("Liczba pracowników: " + getEmployees().size());
+        }
+
+        if (getEmployees().size() > 0) {
+            System.out.println("\nLista pracowników (" + getEmployees().size() + "):");
+
+            int i = 0;
+            for (String employee : getEmployees()) {
+                if (i++ == 5) {
+                    System.out.println("...");
+                    break;
+                }
+                System.out.println(employee);
+            }
+        }
+    }
+
+    private static void printWelcomeText() {
+        SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yy HH:mm");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder
+                .append(companyName).append("\n")
+                .append("Dzień dobry, ")
+                .append(getOperatorName()).append("\n")
+                .append("Aktualna data: ")
+                .append(ft.format(new Date()));
+        System.out.println(stringBuilder);
+    }
+
+    private static Scanner getFileScanner() {
+        File file = new File(fileName);
+        Scanner fileScanner = null;
+        try {
+            fileScanner = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            System.out.println("Błąd pobrania pliku z listą pracowników!");
+            return null;
+        }
+        return fileScanner;
+    }
+
+    private static ArrayList<String> getEmployees(Boolean onlyLogged){
+        return onlyLogged ? loggedEmployees : employees;
+    }
+
+    private static ArrayList<String> getEmployees(){
+        return employees;
+    }
+
+    private static String getOperatorName(){
+        return "Mateusz";
+    }
 }
