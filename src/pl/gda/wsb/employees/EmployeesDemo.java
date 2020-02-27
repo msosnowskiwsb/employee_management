@@ -1,9 +1,6 @@
 package pl.gda.wsb.employees;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -36,62 +33,13 @@ public class EmployeesDemo {
         }
         fileScanner.close();
 
-        printWelcomeText();
+        EmployeePrinter.printWelcomeText(companyName, dataBase.getOperatorName());
 
-        printEmployees();
+        EmployeePrinter.printEmployees();
 
-        printLoggedEmployees();
+        EmployeePrinter.printLoggedEmployees();
 
         employeeRepository.readEmployeeNameAndChangeStatus(employeeRepository.getEmployees());
-    }
-
-    private static void printLoggedEmployees() {
-        if (employeeRepository.getEmployees(true).size() > 0) {
-            System.out.println("\nZalogowani pracownicy (" + employeeRepository.getEmployees(true).size() + "):");
-
-            Collections.sort(employeeRepository.getEmployees(true));
-            int i = 0;
-            for (String employee : employeeRepository.getEmployees(true)) {
-                if (i++ == 5) {
-                    System.out.println("...");
-                    break;
-                }
-                System.out.println(employee);
-            }
-        }
-    }
-
-    private static void printEmployees() {
-        if (employeeRepository.getEmployees().size() == 0) {
-            System.out.println("Brak pracowników");
-        } else {
-            System.out.println("Liczba pracowników: " + employeeRepository.getEmployees().size());
-        }
-
-        if (employeeRepository.getEmployees().size() > 0) {
-            System.out.println("\nLista pracowników (" + employeeRepository.getEmployees().size() + "):");
-
-            int i = 0;
-            for (String employee : employeeRepository.getEmployees()) {
-                if (i++ == 5) {
-                    System.out.println("...");
-                    break;
-                }
-                System.out.println(employee);
-            }
-        }
-    }
-
-    private static void printWelcomeText() {
-        SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yy HH:mm");
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder
-                .append(companyName).append("\n")
-                .append("Dzień dobry, ")
-                .append(dataBase.getOperatorName()).append("\n")
-                .append("Aktualna data: ")
-                .append(ft.format(new Date()));
-        System.out.println(stringBuilder);
     }
 
 }

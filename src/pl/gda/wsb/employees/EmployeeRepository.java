@@ -52,16 +52,3 @@ public class EmployeeRepository {
         return EmployeesDemo.employees;
     }
 }
-
-
-/*
-Utworzmy nową klasę EmployeeRepository i
-przenieśmy do niej metody getEmployees()
-oraz readEmployeeNameAndChangeStatus().
-
-
-Dodajmy do niej pole dataBase typu DataBase (metody nie mogą już być static).
-
-Do klasy EmployeeDemo dodajemy statyczne pole employeeRepository typu EmployeeRepository i tworzymy obiekt tej klasy w metodzie main(). Używamy nowego obiektu w miejscu wywoływania usuniętych metod.
-
- */
