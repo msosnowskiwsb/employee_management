@@ -9,7 +9,15 @@ import java.util.Scanner;
 
 public class DataBase {
 
-    protected String fileName = System.getProperty("user.dir") + "\\utils\\db.txt";
+    private final String fileName;
+
+    public DataBase() {
+        this.fileName = System.getProperty("user.dir") + "\\utils\\db.txt";
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
 
     protected void saveToFile(ArrayList<String> employeesListToSave) {
         FileWriter fw = null;

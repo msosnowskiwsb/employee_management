@@ -7,10 +7,19 @@ import java.util.regex.Pattern;
 
 public class EmployeeRepository {
 
-     static ArrayList<String> employees = new ArrayList<>();
-     static ArrayList<String> loggedEmployees = new ArrayList<>();
+     private ArrayList<String> employees;
+     private ArrayList<String> loggedEmployees;
 
-    DataBase dataBase = new DataBase();
+    public EmployeeRepository() {
+        this.employees = new ArrayList<>();
+        this.loggedEmployees = new ArrayList<>();
+    }
+
+    private DataBase dataBase = new DataBase();
+
+    public DataBase getDataBase() {
+        return dataBase;
+    }
 
     protected void readEmployeeNameAndChangeStatus(ArrayList<String> employeeList) {
         System.out.println("\nPodaj imię i nazwisko (exit = koniec): ");
