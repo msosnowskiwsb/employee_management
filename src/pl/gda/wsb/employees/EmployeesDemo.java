@@ -13,10 +13,12 @@ public class EmployeesDemo {
     static String companyName = "Logintegra Sp. z o. o.";
     static ArrayList<String> employees = new ArrayList<>();
     static ArrayList<String> loggedEmployees = new ArrayList<>();
-    private static DataBase dataBase;
+    private static DataBase dataBase                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ;
+    private static EmployeeRepository employeeRepository;
 
     public static void main(String[] args) {
         dataBase = new DataBase();
+        employeeRepository = new EmployeeRepository();
 
         Scanner fileScanner = dataBase.getFileScanner();
         if (fileScanner == null) return;
@@ -26,9 +28,9 @@ public class EmployeesDemo {
             String employee = fileScanner.nextLine();
             Matcher matcher = pattern.matcher(employee);
             if (matcher.matches()) {
-                getEmployees().add(employee);
+                employeeRepository.getEmployees().add(employee);
                 if (Boolean.parseBoolean(matcher.group(1))) {
-                    getEmployees(true).add(matcher.group(2));
+                    employeeRepository.getEmployees(true).add(matcher.group(2));
                 }
             }
         }
@@ -40,51 +42,16 @@ public class EmployeesDemo {
 
         printLoggedEmployees();
 
-        readEmployeeNameAndChangeStatus(getEmployees());
-    }
-
-    private static void readEmployeeNameAndChangeStatus(ArrayList<String> employeeList) {
-        System.out.println("\nPodaj imię i nazwisko (exit = koniec): ");
-        Scanner inScanner = new Scanner(System.in);
-        while (inScanner.hasNextLine()) {
-            String text = inScanner.nextLine();
-            if (text.equals("exit")) {
-
-                dataBase.saveToFile(employeeList);
-                break;
-            }
-
-            int i = 0;
-            boolean searched = false;
-            Pattern patternSearch = Pattern.compile("^(true|false) - " + text + " - (.+)$");
-
-            for (String employee : employeeList) {
-                Matcher matcher = patternSearch.matcher(employee);
-                if (matcher.matches()) {
-                    searched = true;
-                    boolean isLogged = Boolean.parseBoolean(matcher.group(1));
-                    employeeList.remove(i);
-                    employeeList.add(i, employee.replace(matcher.group(1), isLogged ? "false" : "true"));
-                    break;
-                }
-                i++;
-            }
-
-            if (searched) {
-                System.out.println("Zmieniono status dla pracownika: " + text);
-            } else {
-                System.out.println("Błędnie podane imię i nazwisko!");
-            }
-        }
+        employeeRepository.readEmployeeNameAndChangeStatus(employeeRepository.getEmployees());
     }
 
     private static void printLoggedEmployees() {
-        if (getEmployees(true).size() > 0) {
-            System.out.println("\nZalogowani pracownicy (" + getEmployees(true).size() + "):");
+        if (employeeRepository.getEmployees(true).size() > 0) {
+            System.out.println("\nZalogowani pracownicy (" + employeeRepository.getEmployees(true).size() + "):");
 
-            Collections.sort(getEmployees(true));
+            Collections.sort(employeeRepository.getEmployees(true));
             int i = 0;
-            for (String employee : getEmployees(true)) {
+            for (String employee : employeeRepository.getEmployees(true)) {
                 if (i++ == 5) {
                     System.out.println("...");
                     break;
@@ -95,17 +62,17 @@ public class EmployeesDemo {
     }
 
     private static void printEmployees() {
-        if (getEmployees().size() == 0) {
+        if (employeeRepository.getEmployees().size() == 0) {
             System.out.println("Brak pracowników");
         } else {
-            System.out.println("Liczba pracowników: " + getEmployees().size());
+            System.out.println("Liczba pracowników: " + employeeRepository.getEmployees().size());
         }
 
-        if (getEmployees().size() > 0) {
-            System.out.println("\nLista pracowników (" + getEmployees().size() + "):");
+        if (employeeRepository.getEmployees().size() > 0) {
+            System.out.println("\nLista pracowników (" + employeeRepository.getEmployees().size() + "):");
 
             int i = 0;
-            for (String employee : getEmployees()) {
+            for (String employee : employeeRepository.getEmployees()) {
                 if (i++ == 5) {
                     System.out.println("...");
                     break;
@@ -125,14 +92,6 @@ public class EmployeesDemo {
                 .append("Aktualna data: ")
                 .append(ft.format(new Date()));
         System.out.println(stringBuilder);
-    }
-
-    private static ArrayList<String> getEmployees(Boolean onlyLogged){
-        return onlyLogged ? loggedEmployees : employees;
-    }
-
-    private static ArrayList<String> getEmployees(){
-        return employees;
     }
 
 }
