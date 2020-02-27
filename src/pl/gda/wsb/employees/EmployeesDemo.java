@@ -1,9 +1,10 @@
 package pl.gda.wsb.employees;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static pl.gda.wsb.employees.EmployeePrinter.*;
 
 public class EmployeesDemo {
 
@@ -28,11 +29,11 @@ public class EmployeesDemo {
         }
         fileScanner.close();
 
-        EmployeePrinter.printWelcomeText(companyName, dataBase.getOperatorName());
+        printWelcomeText(companyName, dataBase.getOperatorName());
 
-        EmployeePrinter.printEmployees();
+        printEmployees(employeeRepository.getEmployees());
 
-        EmployeePrinter.printLoggedEmployees();
+        printLoggedEmployees(employeeRepository.getEmployees(true));
 
         employeeRepository.readEmployeeNameAndChangeStatus(employeeRepository.getEmployees());
     }

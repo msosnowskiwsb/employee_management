@@ -1,20 +1,19 @@
 package pl.gda.wsb.employees;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
 public class EmployeePrinter {
 
-    static EmployeeRepository employeeRepository = new EmployeeRepository();
+     static void printLoggedEmployees(ArrayList<String> loggedEmployees) {
+        if (loggedEmployees.size() > 0) {
+            System.out.println("\nZalogowani pracownicy (" + loggedEmployees.size() + "):");
 
-    static void printLoggedEmployees() {
-        if (employeeRepository.getEmployees(true).size() > 0) {
-            System.out.println("\nZalogowani pracownicy (" + employeeRepository.getEmployees(true).size() + "):");
-
-            Collections.sort(employeeRepository.getEmployees(true));
+            Collections.sort(loggedEmployees);
             int i = 0;
-            for (String employee : employeeRepository.getEmployees(true)) {
+            for (String employee : loggedEmployees) {
                 if (i++ == 5) {
                     System.out.println("...");
                     break;
@@ -24,18 +23,18 @@ public class EmployeePrinter {
         }
     }
 
-    static void printEmployees() {
-        if (employeeRepository.getEmployees().size() == 0) {
+     static void printEmployees(ArrayList<String> allEmployees) {
+        if (allEmployees.size() == 0) {
             System.out.println("Brak pracowników");
         } else {
-            System.out.println("Liczba pracowników: " + employeeRepository.getEmployees().size());
+            System.out.println("Liczba pracowników: " + allEmployees.size());
         }
 
-        if (employeeRepository.getEmployees().size() > 0) {
-            System.out.println("\nLista pracowników (" + employeeRepository.getEmployees().size() + "):");
+        if (allEmployees.size() > 0) {
+            System.out.println("\nLista pracowników (" + allEmployees.size() + "):");
 
             int i = 0;
-            for (String employee : employeeRepository.getEmployees()) {
+            for (String employee : allEmployees) {
                 if (i++ == 5) {
                     System.out.println("...");
                     break;
@@ -45,13 +44,13 @@ public class EmployeePrinter {
         }
     }
 
-    static void printWelcomeText(String companyName, String operaorName) {
+     static void printWelcomeText(String companyName, String operatorName) {
         SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yy HH:mm");
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder
                 .append(companyName).append("\n")
                 .append("Dzień dobry, ")
-                .append(operaorName).append("\n")
+                .append(operatorName).append("\n")
                 .append("Aktualna data: ")
                 .append(ft.format(new Date()));
         System.out.println(stringBuilder);
