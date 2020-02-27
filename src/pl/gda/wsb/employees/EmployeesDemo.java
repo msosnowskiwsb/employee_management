@@ -7,15 +7,10 @@ import java.util.regex.Pattern;
 
 public class EmployeesDemo {
 
-    static String companyName = "Logintegra Sp. z o. o.";
-    static ArrayList<String> employees = new ArrayList<>();
-    static ArrayList<String> loggedEmployees = new ArrayList<>();
-    private static DataBase dataBase                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ;
-    private static EmployeeRepository employeeRepository;
-
     public static void main(String[] args) {
-        dataBase = new DataBase();
-        employeeRepository = new EmployeeRepository();
+        final String companyName = "Logintegra Sp. z o. o.";
+        DataBase dataBase = new DataBase();
+        EmployeeRepository employeeRepository = new EmployeeRepository();
 
         Scanner fileScanner = dataBase.getFileScanner();
         if (fileScanner == null) return;

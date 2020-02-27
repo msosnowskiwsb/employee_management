@@ -7,6 +7,9 @@ import java.util.regex.Pattern;
 
 public class EmployeeRepository {
 
+     static ArrayList<String> employees = new ArrayList<>();
+     static ArrayList<String> loggedEmployees = new ArrayList<>();
+
     DataBase dataBase = new DataBase();
 
     protected void readEmployeeNameAndChangeStatus(ArrayList<String> employeeList) {
@@ -45,10 +48,10 @@ public class EmployeeRepository {
     }
 
     protected ArrayList<String> getEmployees(Boolean onlyLogged){
-        return onlyLogged ? EmployeesDemo.loggedEmployees : EmployeesDemo.employees;
+        return onlyLogged ? loggedEmployees : employees;
     }
 
     protected ArrayList<String> getEmployees(){
-        return EmployeesDemo.employees;
+        return employees;
     }
 }
