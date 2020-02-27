@@ -43,13 +43,17 @@ public class EmployeesDemo {
 
         printLoggedEmployees();
 
+        readEmployeeNameAndChangeStatus(getEmployees());
+    }
+
+    private static void readEmployeeNameAndChangeStatus(ArrayList<String> employeeList) {
         System.out.println("\nPodaj imię i nazwisko (exit = koniec): ");
         Scanner inScanner = new Scanner(System.in);
         while (inScanner.hasNextLine()) {
             String text = inScanner.nextLine();
             if (text.equals("exit")) {
 
-                saveToFile(getEmployees());
+                saveToFile(employeeList);
                 break;
             }
 
@@ -57,13 +61,13 @@ public class EmployeesDemo {
             boolean searched = false;
             Pattern patternSearch = Pattern.compile("^(true|false) - " + text + " - (.+)$");
 
-            for (String employee : getEmployees()) {
+            for (String employee : employeeList) {
                 Matcher matcher = patternSearch.matcher(employee);
                 if (matcher.matches()) {
                     searched = true;
                     boolean isLogged = Boolean.parseBoolean(matcher.group(1));
-                    getEmployees().remove(i);
-                    getEmployees().add(i, employee.replace(matcher.group(1), isLogged ? "false" : "true"));
+                    employeeList.remove(i);
+                    employeeList.add(i, employee.replace(matcher.group(1), isLogged ? "false" : "true"));
                     break;
                 }
                 i++;
