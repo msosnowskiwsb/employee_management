@@ -57,10 +57,3 @@ public class EmployeePrinter {
         System.out.println(stringBuilder);
     }
 }
-
-/*
-Utworzmy nową klasę EmployeePrinter i przenieśmy do niej metody printWelcomeText(), printEmployees() oraz printLoggedEmployees().
-
-Metody w tej klasie mogą być statyczne - nie potrzebują stanu obiektu. Do metody printWelcomeText() dodajmy parametry String companyName oraz String operatorName.
-
- */
