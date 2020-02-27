@@ -40,12 +40,3 @@ public class DataBase {
         return "Mateusz";
     }
 }
-
-
-/*
-Utworzmy nową klasę DataBase i przenieśmy do niej metody getOperatorName(), getFileScanner() oraz saveToFile(). Dodajmy do niej pole fileName typu String (metody nie mogą już być static).
-
-Do klasy EmployeeDemo dodajemy statyczne pole dataBase typu DataBase I tworzymy obiekt tej klasy w metodzie main(). Używamy nowego obiektu w miejscu wywoływania usuniętych metod.
-
-
- */
