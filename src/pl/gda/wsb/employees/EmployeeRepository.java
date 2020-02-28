@@ -7,8 +7,8 @@ import java.util.regex.Pattern;
 
 public class EmployeeRepository {
 
-     private ArrayList<String> employees;
-     private ArrayList<String> loggedEmployees;
+     private ArrayList<Employee> employees;
+     private ArrayList<Employee> loggedEmployees;
 
     public EmployeeRepository() {
         this.employees = new ArrayList<>();
@@ -21,12 +21,12 @@ public class EmployeeRepository {
         return dataBase;
     }
 
-    protected void readEmployeeNameAndChangeStatus(ArrayList<String> employeeList) {
+    protected void readEmployeeNameAndChangeStatus(ArrayList<Employee> employeeList) {
         System.out.println("\nPodaj imię i nazwisko (exit = koniec): ");
         Scanner inScanner = new Scanner(System.in);
         while (inScanner.hasNextLine()) {
-            String text = inScanner.nextLine();
-            if (text.equals("exit")) {
+            String employeeNameFromUser = inScanner.nextLine();
+            if (employeeNameFromUser.equals("exit")) {
 
                 dataBase.saveToFile(employeeList);
                 break;
@@ -34,33 +34,32 @@ public class EmployeeRepository {
 
             int i = 0;
             boolean searched = false;
-            Pattern patternSearch = Pattern.compile("^(true|false) - " + text + " - (.+)$");
+            Pattern patternSearch = Pattern.compile("^(true|false) - " + employeeNameFromUser + " - (.+)$");
 
-            for (String employee : employeeList) {
-                Matcher matcher = patternSearch.matcher(employee);
+            for (Employee employee : employeeList) {
+                Matcher matcher = patternSearch.matcher(employee.toString());
                 if (matcher.matches()) {
                     searched = true;
                     boolean isLogged = Boolean.parseBoolean(matcher.group(1));
-                    employeeList.remove(i);
-                    employeeList.add(i, employee.replace(matcher.group(1), isLogged ? "false" : "true"));
+                    employeeList.get(i).setLogged(!isLogged);
                     break;
                 }
                 i++;
             }
 
             if (searched) {
-                System.out.println("Zmieniono status dla pracownika: " + text);
+                System.out.println("Zmieniono status dla pracownika: " + employeeNameFromUser);
             } else {
                 System.out.println("Błędnie podane imię i nazwisko!");
             }
         }
     }
 
-    protected ArrayList<String> getEmployees(Boolean onlyLogged){
+    protected ArrayList<Employee> getEmployees(Boolean onlyLogged){
         return onlyLogged ? loggedEmployees : employees;
     }
 
-    protected ArrayList<String> getEmployees(){
+    protected ArrayList<Employee> getEmployees(){
         return employees;
     }
 }

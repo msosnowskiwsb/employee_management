@@ -16,14 +16,18 @@ public class EmployeesDemo {
         Scanner fileScanner = dataBase.getFileScanner();
         if (fileScanner == null) return;
 
-        Pattern pattern = Pattern.compile("^(true|false) - (.+)$");
+        Pattern pattern = Pattern.compile("^(true|false) - (.+) - (.+)$");
         while (fileScanner.hasNextLine()) {
-            String employee = fileScanner.nextLine();
-            Matcher matcher = pattern.matcher(employee);
+            String line_from_file = fileScanner.nextLine();
+            Matcher matcher = pattern.matcher(line_from_file);
             if (matcher.matches()) {
+                Employee employee = new Employee(
+                        Boolean.parseBoolean(matcher.group(1)),
+                        matcher.group(2),
+                        matcher.group(3));
                 employeeRepository.getEmployees().add(employee);
                 if (Boolean.parseBoolean(matcher.group(1))) {
-                    employeeRepository.getEmployees(true).add(matcher.group(2));
+                    employeeRepository.getEmployees(true).add(employee);
                 }
             }
         }

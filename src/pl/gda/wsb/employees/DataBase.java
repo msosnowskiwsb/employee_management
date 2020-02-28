@@ -19,12 +19,12 @@ public class DataBase {
         return fileName;
     }
 
-    protected void saveToFile(ArrayList<String> employeesListToSave) {
+    protected void saveToFile(ArrayList<Employee> employeesListToSave) {
         FileWriter fw = null;
         try {
             fw = new FileWriter(fileName, false);
-            for (String employee : employeesListToSave) {
-                fw.write(employee + "\n");
+            for (Employee employee : employeesListToSave) {
+                fw.write(employee.toString() + "\n");
             }
             fw.close();
         } catch (IOException e) {

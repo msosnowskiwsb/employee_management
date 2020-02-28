@@ -2,28 +2,26 @@ package pl.gda.wsb.employees;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 
 public class EmployeePrinter {
 
-     static void printLoggedEmployees(ArrayList<String> loggedEmployees) {
+     static void printLoggedEmployees(ArrayList<Employee> loggedEmployees) {
         if (loggedEmployees.size() > 0) {
             System.out.println("\nZalogowani pracownicy (" + loggedEmployees.size() + "):");
 
-            Collections.sort(loggedEmployees);
             int i = 0;
-            for (String employee : loggedEmployees) {
+            for (Employee employee : loggedEmployees) {
                 if (i++ == 5) {
                     System.out.println("...");
                     break;
                 }
-                System.out.println(employee);
+                System.out.println(employee.toString());
             }
         }
     }
 
-     static void printEmployees(ArrayList<String> allEmployees) {
+     static void printEmployees(ArrayList<Employee> allEmployees) {
         if (allEmployees.size() == 0) {
             System.out.println("Brak pracowników");
         } else {
@@ -34,12 +32,12 @@ public class EmployeePrinter {
             System.out.println("\nLista pracowników (" + allEmployees.size() + "):");
 
             int i = 0;
-            for (String employee : allEmployees) {
+            for (Employee employee : allEmployees) {
                 if (i++ == 5) {
                     System.out.println("...");
                     break;
                 }
-                System.out.println(employee);
+                System.out.println(employee.toString());
             }
         }
     }
