@@ -10,6 +10,9 @@ W poszczególnych plikach:
 - task5,
 - task6,
 - task7,
+- task8,
+- task9,
+- task10.
 
 znajdują się kolejne treści zadań.
 
