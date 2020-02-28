@@ -20,9 +20,8 @@ public class DataBase {
     }
 
     protected void saveToFile(ArrayList<Employee> employeesListToSave) {
-        FileWriter fw = null;
         try {
-            fw = new FileWriter(fileName, false);
+            FileWriter fw = new FileWriter(fileName, false);
             for (Employee employee : employeesListToSave) {
                 fw.write(employee.toString() + "\n");
             }
@@ -34,7 +33,7 @@ public class DataBase {
 
     protected Scanner getFileScanner() {
         File file = new File(fileName);
-        Scanner fileScanner = null;
+        Scanner fileScanner;
         try {
             fileScanner = new Scanner(file);
         } catch (FileNotFoundException e) {

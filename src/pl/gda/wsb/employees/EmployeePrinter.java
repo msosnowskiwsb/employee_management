@@ -2,6 +2,7 @@ package pl.gda.wsb.employees;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 
 public class EmployeePrinter {
@@ -10,6 +11,7 @@ public class EmployeePrinter {
         if (loggedEmployees.size() > 0) {
             System.out.println("\nZalogowani pracownicy (" + loggedEmployees.size() + "):");
 
+            loggedEmployees.sort(Comparator.comparing(Employee::getPosition));
             int i = 0;
             for (Employee employee : loggedEmployees) {
                 if (i++ == 5) {
@@ -27,6 +29,8 @@ public class EmployeePrinter {
         } else {
             System.out.println("Liczba pracowników: " + allEmployees.size());
         }
+
+         allEmployees.sort(Comparator.comparing(Employee::getPosition));
 
         if (allEmployees.size() > 0) {
             System.out.println("\nLista pracowników (" + allEmployees.size() + "):");
