@@ -1,6 +1,7 @@
 package pl.gda.wsb.employees;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public class DataBase{
     private final String fileName;
 
     public DataBase() {
-        this.fileName = System.getProperty("user.dir") + "\\utils\\db.txeeeeeeet";
+        this.fileName = System.getProperty("user.dir") + "\\utils\\db.txt";
     }
 
     public String getFileName() {
@@ -30,15 +31,15 @@ public class DataBase{
         }
     }
 
-    protected Scanner getFileScanner() throws Exception{
+    protected Scanner getFileScanner(){
         File file = new File(fileName);
         Scanner fileScanner;
-      //  try {
+        try {
             fileScanner = new Scanner(file);
-      /*  } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("Błąd pobrania pliku z listą pracowników!");
             return null;
-        }*/
+        }
         return fileScanner;
     }
 

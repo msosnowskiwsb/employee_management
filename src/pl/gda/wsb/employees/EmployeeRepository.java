@@ -22,7 +22,7 @@ public class EmployeeRepository {
         return dataBase;
     }
 
-    protected void readEmployeeNameAndChangeStatus(ArrayList<Employee> employeeList) throws IOException {
+    protected void readEmployeeNameAndChangeStatus(ArrayList<Employee> employeeList) throws IOException, WrongEmployee {
         System.out.println("\nPodaj imię i nazwisko (exit = koniec): ");
         Scanner inScanner = new Scanner(System.in);
         while (inScanner.hasNextLine()) {
@@ -51,7 +51,7 @@ public class EmployeeRepository {
             if (searched) {
                 System.out.println("Zmieniono status dla pracownika: " + employeeNameFromUser);
             } else {
-                System.out.println("Błędnie podane imię i nazwisko!");
+                throw new WrongEmployee();
             }
         }
     }

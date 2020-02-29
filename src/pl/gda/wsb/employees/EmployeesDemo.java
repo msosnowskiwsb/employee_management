@@ -62,7 +62,11 @@ public class EmployeesDemo {
 
         printLoggedEmployees(employeeRepository.getEmployees(true));
 
-        employeeRepository.readEmployeeNameAndChangeStatus(employeeRepository.getEmployees());
+        try {
+            employeeRepository.readEmployeeNameAndChangeStatus(employeeRepository.getEmployees());
+        } catch (WrongEmployee wrongEmployeeException){
+            System.out.println("Błędnie podane imię i nazwisko!");
+        }
     }
 
 }
