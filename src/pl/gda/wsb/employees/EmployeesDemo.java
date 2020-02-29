@@ -1,5 +1,6 @@
 package pl.gda.wsb.employees;
 
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -8,7 +9,7 @@ import static pl.gda.wsb.employees.EmployeePrinter.*;
 
 public class EmployeesDemo {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         final String companyName = "Logintegra Sp. z o. o.";
         EmployeeRepository employeeRepository = new EmployeeRepository();
 

@@ -1,5 +1,6 @@
 package pl.gda.wsb.employees;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -21,7 +22,7 @@ public class EmployeeRepository {
         return dataBase;
     }
 
-    protected void readEmployeeNameAndChangeStatus(ArrayList<Employee> employeeList) {
+    protected void readEmployeeNameAndChangeStatus(ArrayList<Employee> employeeList) throws IOException {
         System.out.println("\nPodaj imię i nazwisko (exit = koniec): ");
         Scanner inScanner = new Scanner(System.in);
         while (inScanner.hasNextLine()) {
