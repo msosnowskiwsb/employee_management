@@ -1,18 +1,25 @@
 package pl.gda.wsb.employees;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static pl.gda.wsb.employees.EmployeePrinter.*;
-
 public class EmployeesDemo {
 
-    public static void main(String[] args) {
-        final String companyName = "Logintegra Sp. z o. o.";
-        EmployeeRepository employeeRepository = new EmployeeRepository();
+    public static String companyName = "Logintegra Sp. z o.o.";
+    static String fileName = System.getProperty("user.dir") + "\\utils\\db.txt";
 
-        Scanner fileScanner = employeeRepository.getDataBase().getFileScanner();
+    static ArrayList<Employee> employees = new ArrayList<>();
+    static ArrayList<Employee> loggedEmployees = new ArrayList<>();
+    private static DataBase dataBase;
+    private static EmployeeRepository  employeeRepository;
+
+    public static void main(String[] args) {
+        dataBase = new DataBase();
+         employeeRepository = new EmployeeRepository();
+
+        Scanner fileScanner = dataBase.getFileScanner();
         if (fileScanner == null) return;
 
         Pattern pattern = Pattern.compile("^(true|false) - (.+) - (.+)$");
@@ -24,44 +31,31 @@ public class EmployeesDemo {
                 boolean status = Boolean.parseBoolean(matcher.group(1));
                 String employeeName = matcher.group(2);
                 String position = matcher.group(3);
-
-                switch (position) {
-                    case "dyrektor": {
-                        Employee employee = new Director(status, employeeName, position);
-                        employeeRepository.getEmployees().add(employee);
-                        if (status) {
-                            employeeRepository.getEmployees(true).add(employee);
-                        }
-                        break;
-                    }
-                    case "handlowiec": {
-                        Employee employee = new Seller(status, employeeName, position);
-                        employeeRepository.getEmployees().add(employee);
-                        if (status) {
-                            employeeRepository.getEmployees(true).add(employee);
-                        }
-                        break;
-                    }
-                    case "kierowca": {
-                        Employee employee = new Driver(status, employeeName, position);
-                        employeeRepository.getEmployees().add(employee);
-                        if (status) {
-                            employeeRepository.getEmployees(true).add(employee);
-                        }
-                        break;
-                    }
-                }
+                createEmployee(status, employeeName, position);
             }
         }
         fileScanner.close();
 
-        printWelcomeText(companyName, employeeRepository.getDataBase().getOperatorName());
+        EmployeePrinter.printWelcomeText();
 
-        printEmployees(employeeRepository.getEmployees());
+        EmployeePrinter.printEmployees();
 
-        printLoggedEmployees(employeeRepository.getEmployees(true));
+        EmployeePrinter.printLoggedEmployees();
 
         employeeRepository.readEmployeeNameAndChangeStatus(employeeRepository.getEmployees());
+    }
+
+    private static void createEmployee(boolean status, String employeeName, String position) {
+        Employee employee = new Employee(status, employeeName, position) {
+            @Override
+            public String getPosition() {
+                return position;
+            }
+        };
+        employeeRepository.getEmployees().add(employee);
+        if (status) {
+            employeeRepository.getEmployees(true).add(employee);
+        }
     }
 
 }
