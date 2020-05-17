@@ -7,13 +7,13 @@ import java.util.Date;
 
 public class EmployeePrinter {
 
-     static void printLoggedEmployees(ArrayList<Employee> loggedEmployees) {
-        if (loggedEmployees.size() > 0) {
-            System.out.println("\nZalogowani pracownicy (" + loggedEmployees.size() + "):");
+     static void printLoggedEmployees() {
+        if (EmployeeRepository.getEmployees(true).size() > 0) {
+            System.out.println("\nZalogowani pracownicy (" + EmployeeRepository.getEmployees(true).size() + "):");
 
-            loggedEmployees.sort(Comparator.comparing(Employee::getPosition));
+            EmployeeRepository.getEmployees(true).sort(Comparator.comparing(Employee::getPosition));
             int i = 0;
-            for (Employee employee : loggedEmployees) {
+            for (Employee employee : EmployeeRepository.getEmployees(true)) {
                 if (i++ == 5) {
                     System.out.println("...");
                     break;
@@ -23,36 +23,34 @@ public class EmployeePrinter {
         }
     }
 
-     static void printEmployees(ArrayList<Employee> allEmployees) {
-        if (allEmployees.size() == 0) {
+     static void printEmployees() {
+        if (EmployeeRepository.getEmployees().size() == 0) {
             System.out.println("Brak pracowników");
         } else {
-            System.out.println("Liczba pracowników: " + allEmployees.size());
+            System.out.println("Liczba pracowników: " + EmployeeRepository.getEmployees().size());
         }
 
-         allEmployees.sort(Comparator.comparing(Employee::getPosition));
+         EmployeeRepository.getEmployees().sort(Comparator.comparing(Employee::getPosition));
 
-        if (allEmployees.size() > 0) {
-            System.out.println("\nLista pracowników (" + allEmployees.size() + "):");
-
-            int i = 0;
-            for (Employee employee : allEmployees) {
-                if (i++ == 5) {
+        if (EmployeeRepository.getEmployees().size() > 0) {
+            System.out.println("\nLista pracowników (" + EmployeeRepository.getEmployees().size() + "):");
+            for (int i=0; i < EmployeeRepository.getEmployees().size(); i++) {
+                if (i == 5) {
                     System.out.println("...");
                     break;
                 }
-                System.out.println(employee.toString());
+                System.out.println(EmployeeRepository.getEmployees().get(i));
             }
         }
     }
 
-     static void printWelcomeText(String companyName, String operatorName) {
+     static void printWelcomeText() {
         SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yy HH:mm");
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder
-                .append(companyName).append("\n")
+                .append(EmployeesDemo.companyName).append("\n")
                 .append("Dzień dobry, ")
-                .append(operatorName).append("\n")
+                .append(DataBase.getOperatorName()).append("\n")
                 .append("Aktualna data: ")
                 .append(ft.format(new Date()));
         System.out.println(stringBuilder);
