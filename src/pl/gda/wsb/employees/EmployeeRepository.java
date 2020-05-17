@@ -7,19 +7,7 @@ import java.util.regex.Pattern;
 
 public class EmployeeRepository {
 
-     private ArrayList<Employee> employees;
-     private ArrayList<Employee> loggedEmployees;
-
-    public EmployeeRepository() {
-        this.employees = new ArrayList<>();
-        this.loggedEmployees = new ArrayList<>();
-    }
-
     private DataBase dataBase = new DataBase();
-
-    public DataBase getDataBase() {
-        return dataBase;
-    }
 
     protected void readEmployeeNameAndChangeStatus(ArrayList<Employee> employeeList) {
         System.out.println("\nPodaj imię i nazwisko (exit = koniec): ");
@@ -55,11 +43,11 @@ public class EmployeeRepository {
         }
     }
 
-    protected ArrayList<Employee> getEmployees(Boolean onlyLogged){
-        return onlyLogged ? loggedEmployees : employees;
+    static ArrayList<Employee> getEmployees(Boolean onlyLogged){
+        return onlyLogged ? EmployeesDemo.loggedEmployees : EmployeesDemo.employees;
     }
 
-    protected ArrayList<Employee> getEmployees(){
-        return employees;
+    static ArrayList<Employee> getEmployees(){
+        return EmployeesDemo.employees;
     }
 }

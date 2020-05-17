@@ -9,19 +9,9 @@ import java.util.Scanner;
 
 public class DataBase {
 
-    private final String fileName;
-
-    public DataBase() {
-        this.fileName = System.getProperty("user.dir") + "\\utils\\db.txt";
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
     protected void saveToFile(ArrayList<Employee> employeesListToSave) {
         try {
-            FileWriter fw = new FileWriter(fileName, false);
+            FileWriter fw = new FileWriter(EmployeesDemo.fileName, false);
             for (Employee employee : employeesListToSave) {
                 fw.write(employee.toString() + "\n");
             }
@@ -32,7 +22,7 @@ public class DataBase {
     }
 
     protected Scanner getFileScanner() {
-        File file = new File(fileName);
+        File file = new File(EmployeesDemo.fileName);
         Scanner fileScanner;
         try {
             fileScanner = new Scanner(file);
@@ -43,7 +33,7 @@ public class DataBase {
         return fileScanner;
     }
 
-    protected String getOperatorName(){
+    static String getOperatorName(){
         return "Mateusz";
     }
 }
