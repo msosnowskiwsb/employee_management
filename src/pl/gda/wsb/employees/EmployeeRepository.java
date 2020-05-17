@@ -13,34 +13,31 @@ public class EmployeeRepository {
         System.out.println("\nPodaj imię i nazwisko (exit = koniec): ");
         Scanner inScanner = new Scanner(System.in);
         while (inScanner.hasNextLine()) {
-            String employeeNameFromUser = inScanner.nextLine();
-            if (employeeNameFromUser.equals("exit")) {
+            try {
+                Employee foundEmployee = searchEmployee(employeeList,inScanner.nextLine());
+                foundEmployee.setLogged(!foundEmployee.isLogged());
+                System.out.println("Zmieniono status dla pracownika: " + foundEmployee.getName() + " na " + foundEmployee.isLogged() + ".\n\nPodaj imię i nazwisko (exit = koniec):");
+            } catch (WrongEmployee exception){
 
-                dataBase.saveToFile(employeeList);
-                break;
-            }
-
-            int i = 0;
-            boolean searched = false;
-            Pattern patternSearch = Pattern.compile("^(true|false) - " + employeeNameFromUser + " - (.+)$");
-
-            for (Employee employee : employeeList) {
-                Matcher matcher = patternSearch.matcher(employee.toString());
-                if (matcher.matches()) {
-                    searched = true;
-                    boolean isLogged = Boolean.parseBoolean(matcher.group(1));
-                    employeeList.get(i).setLogged(!isLogged);
-                    break;
-                }
-                i++;
-            }
-
-            if (searched) {
-                System.out.println("Zmieniono status dla pracownika: " + employeeNameFromUser);
-            } else {
-                System.out.println("Błędnie podane imię i nazwisko!");
             }
         }
+    }
+
+    private Employee searchEmployee(ArrayList<Employee> employeeList, String employNameFromUser) throws WrongEmployee{
+        if (employNameFromUser.equals("exit")) {
+            dataBase.saveToFile(employeeList);
+            System.exit(0);
+        }
+
+        Pattern patternSearch = Pattern.compile("^(true|false) - " + employNameFromUser + " - (.+)$");
+
+        for (Employee employee : employeeList) {
+            Matcher matcher = patternSearch.matcher(employee.toString());
+            if (matcher.matches()) {
+                return employee;
+            }
+        }
+        throw new WrongEmployee();
     }
 
     static ArrayList<Employee> getEmployees(Boolean onlyLogged){
